@@ -26,10 +26,7 @@ print(utc_now.date(),  utc_now.tzname())
 beijing_now = utc_now.astimezone(SHA_TZ)
 print(beijing_now, beijing_now.tzname())
 print(beijing_now.date(), beijing_now.tzname())
-# 系统默认时区
-local_now = utc_now.astimezone()
-print(local_now, local_now.tzname())
-print(local_now.date(), local_now.tzname())
+
 
 
 def get_user():
@@ -67,12 +64,12 @@ def get_user():
 
 def get_time_stamp():
     now_time = time.localtime(time.time());
-
+    print(time.localtime(time.time()));
     if now_time[3] >= 0 and now_time[3] <= 2:
         start_time = '7:00:00';
     elif now_time[3] >= 3 and now_time[3] <= 8:
         start_time = '11:00:00';
-    elif now_time[3] >= 9 and now_time[3] <= 12:
+    elif now_time[3] >= 10 and now_time[3] <= 12:
         start_time = '17:30:00';
     else:
         return 1;
