@@ -35,7 +35,9 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pip install requests
-        pip install pycryptodome
+        pip3 install requests
+        
+        pip3 install pycryptodome
+        
         python3 beijingtime.py
         python3 qiandao.py
