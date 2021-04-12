@@ -64,12 +64,12 @@ def get_user():
 
 def get_time_stamp():
     now_time = time.localtime(time.time());
-    print(time.localtime(time.time()));
+   # print(time.localtime(time.time()));
     if now_time[3] >= 0 and now_time[3] <= 2:
         start_time = '7:00:00';
     elif now_time[3] >= 3 and now_time[3] <= 8:
         start_time = '11:00:00';
-    elif now_time[3] >= 10 and now_time[3] <= 12:
+    elif now_time[3] >= 9 and now_time[3] <= 12:
         start_time = '17:30:00';
     else:
         return 1;
@@ -257,8 +257,7 @@ def email(now_time):
 if __name__ == '__main__':
     while True:
         now_time = time.localtime(time.time());
-        if (now_time[3] == 0 or now_time[3] == 1 or now_time[3] == 2 or now_time[3] == 3 or now_time[3] == 4 or
-                now_time[3] == 5 or now_time[3] == 9 or now_time[3] == 10 or now_time[3] == 11 or now_time[3] == 12):
+        if (now_time[3] >= 0 and now_time[3] <= 12):
             log = open('log/' + str(now_time[0]) + '.' + str(now_time[1]) + '.' + str(now_time[2]) + '-' + str(
                 now_time[3]) + '.' + str(now_time[4]) + '.txt', 'w')
             print('---------------------------------------------------');
