@@ -38,5 +38,16 @@ jobs:
         pip3 install requests
         pip3 install ntplib
         pip3 install pycryptodome
+    - name: moring
+      run: |    
+        python3 qiandao1.py
         
-        python3 qiandao.py
+    - name: noon
+      run: |    
+        python3 qiandao2.py
+    
+    - name: night
+      run: |    
+        python3 qiandao3.py
+        
+        
