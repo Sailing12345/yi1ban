@@ -36,7 +36,7 @@ jobs:
     - name: Test with pytest
       run: |
         pip3 install requests
-        
+        pip3 install ntplib
         pip3 install pycryptodome
         
         python3 beijingtime.py
