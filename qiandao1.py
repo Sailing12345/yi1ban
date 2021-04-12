@@ -46,7 +46,7 @@ def get_user():
 
 def get_time_stamp():
     now_time = time.localtime(time.time());
-        print(' time.localtime(time.time())');
+        print(time.localtime(time.time()));
     if now_time[3] >= 1 and now_time[3] <= 20:
         start_time = '7:00:00';
     else:
