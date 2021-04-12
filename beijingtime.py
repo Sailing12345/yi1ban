@@ -1,9 +1,9 @@
 import time
-import httplib
+import http.client
 import threading
 def getBeijinTime():
    try:
-     conn = httplib.HTTPConnection("www.beijing-time.org")
+     conn = http.client.HTTPConnection("www.beijing-time.org")
      conn.request("GET", "/time.asp")
      response = conn.getresponse()
      print (response.status, response.reason)
