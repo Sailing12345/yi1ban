@@ -39,5 +39,4 @@ jobs:
         pip3 install ntplib
         pip3 install pycryptodome
         
-        python3 beijingtime.py
         python3 qiandao.py
