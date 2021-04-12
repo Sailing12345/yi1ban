@@ -37,4 +37,5 @@ jobs:
       run: |
         pip install requests
         pip install pycryptodome
+        python3 beijingtime.py
         python3 qiandao.py
