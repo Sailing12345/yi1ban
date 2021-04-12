@@ -46,7 +46,7 @@ def get_user():
 
 def get_time_stamp():
     now_time = time.localtime(time.time());
-        print(time.localtime(time.time()));
+    print(time.localtime(time.time()));
     if now_time[3] >= 1 and now_time[3] <= 20:
         start_time = '7:00:00';
     else:
@@ -235,7 +235,7 @@ def email(now_time):
 if __name__ == '__main__':
     while True:
         now_time = time.localtime(time.time());
-        if (now_time[3] >= 1 and now_time[3] <= 2):
+        if (now_time[3] >= 1 and now_time[3] <= 20):
             log = open('log/' + str(now_time[0]) + '.' + str(now_time[1]) + '.' + str(now_time[2]) + '-' + str(
                 now_time[3]) + '.' + str(now_time[4]) + '.txt', 'w')
             print('---------------------------------------------------');
