@@ -1,41 +1,36 @@
+import os
+import ntplib
 import time
-import http.client
-import threading
-def getBeijinTime():
-   try:
-     conn = http.client.HTTPConnection("www.beijing-time.org")
-     conn.request("GET", "/time.asp")
-     response = conn.getresponse()
-     print (response.status, response.reason)
-     if response.status == 200:
-       result = response.read()
-       data = result.split("\r\n")
-       year = data[1][len("nyear")+1 : len(data[1])-1]
-       month = data[2][len("nmonth")+1 : len(data[2])-1]
-       day = data[3][len("nday")+1 : len(data[3])-1]
-       #wday = data[4][len("nwday")+1 : len(data[4])-1]
-       hrs = data[5][len("nhrs")+1 : len(data[5])-1]
-       minute = data[6][len("nmin")+1 : len(data[6])-1]
-       sec = data[7][len("nsec")+1 : len(data[7])-1]
-       beijinTimeStr = "%s/%s/%s %s:%s:%s" % (year, month, day, hrs, minute, sec)
-       beijinTime = time.strptime(beijinTimeStr, "%Y/%m/%d %X")
-       return beijinTime
-   except:
-     return None
-def syncLocalTime():
-   """
-   同步本地时间
-   """
-   beijinTime = getBeijinTime()
-   if beijinTime is None:
-     timer = threading.Timer(30.0, syncLocalTime)
-     timer.start()
-   else:
-     tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec = beijinTime[:6]
-     import os
-     os.system("date %d-%d-%d" % (tm_year, tm_mon, tm_mday))#设置日期
-     os.system("time %d:%d:%d.0" % (tm_hour, tm_min, tm_sec))#设置时间
-if __name__=='__main__':
-  while True:
-    syncLocalTime()
-    time.sleep(30)
+
+ntp_server_url = 'ntp5.aliyun.com'
+
+
+def get_ntp_time(ntp_server_url):
+    """
+    通过ntp server获取网络时间
+    :param ntp_server_url: 传入的服务器的地址
+    :return: time.strftime()格式化后的时间和日期
+    """
+
+    ntp_client = ntplib.NTPClient()
+    ntp_stats = ntp_client.request(ntp_server_url)
+    fmt_time = time.strftime('%X', time.localtime(ntp_stats.tx_time))
+    fmt_date = time.strftime('%Y-%m-%d', time.localtime(ntp_stats.tx_time))
+    return fmt_time, fmt_date
+
+
+def set_system_time(new_time, new_date):
+    """
+    通过os.system来设置时间,需要管理员权限
+    :param new_time:
+    :param new_date
+    :return: 无返回值
+    """
+    os.system('time {}'.format(new_time))
+    os.system('date {}'.format(new_date))
+
+
+if __name__ == '__main__':
+    ntp_server_time, ntp_server_date = get_ntp_time(ntp_server_url)
+    set_system_time(ntp_server_time, ntp_server_date)
+    print('时间已经与{}同步'.format(ntp_server_url))
